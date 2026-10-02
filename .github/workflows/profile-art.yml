@@ -1,0 +1,59 @@
+# Redraws the profile art from live data: contribution snake, 3D contribution
+# city, and the terminal header + project cards (tools/gen_profile_svgs.py).
+# Scheduled runs are off until the repo variable PROFILE_ART=on is set, so a
+# private copy of this repo spends no Actions minutes.
+name: Profile art
+
+on:
+  schedule:
+    - cron: "17 4 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: profile-art
+  cancel-in-progress: true
+
+jobs:
+  draw:
+    if: vars.PROFILE_ART == 'on' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Contribution snake
+        uses: Platane/snk/svg-only@v3
+        with:
+          github_user_name: ${{ github.repository_owner }}
+          outputs: |
+            docs/assets/snake-light.svg
+            docs/assets/snake-dark.svg?palette=github-dark
+
+      - name: 3D contribution city
+        uses: yoshi389111/github-profile-3d-contrib@v0.9.3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          USERNAME: ${{ github.repository_owner }}
+
+      - name: Keep only the two cities the README shows
+        run: |
+          cp profile-3d-contrib/profile-green-animate.svg docs/assets/city-light.svg
+          cp profile-3d-contrib/profile-night-rainbow.svg docs/assets/city-dark.svg
+          rm -rf profile-3d-contrib
+
+      - name: Terminal header and project cards
+        run: python3 tools/gen_profile_svgs.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Commit if anything changed
+        run: |
+          git add docs/assets
+          if git diff --cached --quiet; then echo "No change"; exit 0; fi
+          git -c user.name="github-actions[bot]" \
+              -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+              commit -m "chore: redraw profile art"
+          git push
