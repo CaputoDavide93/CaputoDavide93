@@ -29,8 +29,7 @@ jobs:
         with:
           github_user_name: ${{ github.repository_owner }}
           outputs: |
-            docs/assets/snake-light.svg
-            docs/assets/snake-dark.svg?palette=github-dark
+            docs/assets/snake.svg?color_snake=#ffb347&color_dots=#2a1c08,#5a3a10,#8a5a18,#c0801f,#ffb347
 
       - name: 3D contribution city
         uses: yoshi389111/github-profile-3d-contrib@v0.9.3
@@ -38,10 +37,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           USERNAME: ${{ github.repository_owner }}
 
-      - name: Keep only the two cities the README shows
+      - name: Keep only the city the README shows
         run: |
-          cp profile-3d-contrib/profile-green-animate.svg docs/assets/city-light.svg
-          cp profile-3d-contrib/profile-night-rainbow.svg docs/assets/city-dark.svg
+          cp profile-3d-contrib/profile-night-view.svg docs/assets/city.svg
           rm -rf profile-3d-contrib
 
       - name: Terminal header and project cards
