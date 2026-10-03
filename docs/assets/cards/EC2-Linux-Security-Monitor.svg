@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="420" height="168" viewBox="0 0 420 168" role="img" aria-label="EC2-Linux-Security-Monitor: ClamAV, auto-updates and a status dashboard for Linux servers">
-<rect width="420" height="168" rx="8" fill="#1b1b1b"/><rect x="5" y="5" width="410" height="158" rx="5" fill="none" stroke="#333333"/>
-<text x="24" y="44" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#4dff7c" text-anchor="start" xml:space="preserve">EC2-Linux-Security-Monitor</text>
-<text x="26" y="82" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace" font-size="15" font-weight="400" fill="#e0901a" text-anchor="start" xml:space="preserve">ClamAV, auto-updates and a status dashboard</text>
-<text x="26" y="103" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace" font-size="15" font-weight="400" fill="#e0901a" text-anchor="start" xml:space="preserve">for Linux servers</text>
-<text x="24" y="144" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace" font-size="14" font-weight="400" fill="#ffffff" text-anchor="start" xml:space="preserve">Platform Shell</text>
-<text x="396" y="144" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace" font-size="14" font-weight="700" fill="#e0901a" text-anchor="end" xml:space="preserve">On time</text>
-</svg>
