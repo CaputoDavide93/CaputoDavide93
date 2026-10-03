@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-"""Draw the profile header: a small, quiet departure board.
+"""Draw the profile header (a small, quiet departure board) and the stack row.
 
-Writes docs/assets/header-{light,dark}.svg in GitHub's own palette so the
+Writes docs/assets/header-{light,dark}.svg and stack-{light,dark}.svg in
+GitHub's own palette so the
 board sits in the page instead of shouting over it. Only the name moves: its
 split-flap tiles spin once on load and settle. The spin glyphs are seeded
 from the text, so re-running writes identical files.
@@ -9,6 +10,7 @@ from the text, so re-running writes identical files.
     python3 tools/gen_profile_svgs.py
 """
 import hashlib
+import json
 import pathlib
 from xml.sax.saxutils import escape
 
@@ -75,10 +77,24 @@ def header(scheme):
             f'role="img" aria-label="{escape(label)}">\n' + "\n".join(o) + "\n</svg>\n")
 
 
+def stack(scheme):
+    """One thin row of monochrome logos (paths from tools/stack_icons.json)."""
+    icons = json.loads((ROOT / "tools" / "stack_icons.json").read_text())["icons"]
+    size, gap = 22, 26
+    w = len(icons) * size + (len(icons) - 1) * gap
+    h = size + 4
+    o = [f'<g transform="translate({i * (size + gap)},2) scale({size / 24})"><title>{escape(ic["label"])}</title>'
+         f'<path d="{ic["d"]}" fill="{SCHEMES[scheme]["muted"]}"/></g>' for i, ic in enumerate(icons)]
+    label = "Stack: " + ", ".join(ic["label"] for ic in icons)
+    return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" viewBox="0 0 {w} {h}" '
+            f'role="img" aria-label="{escape(label)}">\n' + "\n".join(o) + "\n</svg>\n")
+
+
 def main():
     ASSETS.mkdir(parents=True, exist_ok=True)
     for scheme in SCHEMES:
         (ASSETS / f"header-{scheme}.svg").write_text(header(scheme))
+        (ASSETS / f"stack-{scheme}.svg").write_text(stack(scheme))
 
 
 if __name__ == "__main__":
