@@ -8,7 +8,7 @@
 <p align="center">
 <picture>
 <source media="(prefers-color-scheme: dark)" srcset="docs/assets/stack-dark.svg">
-<img src="docs/assets/stack-light.svg" height="26" alt="Stack: Python, Swift, Flutter, AWS, Microsoft Azure, Apple, Docker, Linux">
+<img src="docs/assets/stack-light.svg" width="560" alt="Stack: Python, Swift, Flutter, AWS, Microsoft Azure, Apple, Docker, Linux">
 </picture>
 </p>
 

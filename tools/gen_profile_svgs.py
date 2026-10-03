@@ -78,13 +78,16 @@ def header(scheme):
 
 
 def stack(scheme):
-    """One thin row of monochrome logos (paths from tools/stack_icons.json)."""
+    """Monochrome logos (paths from tools/stack_icons.json) in a frame that
+    matches the header: same width, background, border and corner radius."""
+    c = SCHEMES[scheme]
     icons = json.loads((ROOT / "tools" / "stack_icons.json").read_text())["icons"]
-    size, gap = 22, 26
-    w = len(icons) * size + (len(icons) - 1) * gap
-    h = size + 4
-    o = [f'<g transform="translate({i * (size + gap)},2) scale({size / 24})"><title>{escape(ic["label"])}</title>'
-         f'<path d="{ic["d"]}" fill="{SCHEMES[scheme]["muted"]}"/></g>' for i, ic in enumerate(icons)]
+    w, h, size = 560, 64, 24
+    gap = (w - 48 - len(icons) * size) / (len(icons) - 1)
+    o = [f'<rect x=".5" y=".5" width="{w - 1}" height="{h - 1}" rx="8" fill="{c["bg"]}" stroke="{c["edge"]}"/>']
+    o += [f'<g transform="translate({24 + i * (size + gap):.1f},{(h - size) / 2}) scale({size / 24})">'
+          f'<title>{escape(ic["label"])}</title><path d="{ic["d"]}" fill="{c["muted"]}"/></g>'
+          for i, ic in enumerate(icons)]
     label = "Stack: " + ", ".join(ic["label"] for ic in icons)
     return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" viewBox="0 0 {w} {h}" '
             f'role="img" aria-label="{escape(label)}">\n' + "\n".join(o) + "\n</svg>\n")
