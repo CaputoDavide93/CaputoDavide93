@@ -1,5 +1,5 @@
 # Redraws the profile art from live data: contribution snake, 3D contribution
-# city, and the terminal header + project cards (tools/gen_profile_svgs.py).
+# city, and every departure-board block of the README (tools/gen_profile_svgs.py).
 # Scheduled runs are off until the repo variable PROFILE_ART=on is set, so a
 # private copy of this repo spends no Actions minutes.
 name: Profile art
@@ -29,17 +29,18 @@ jobs:
         with:
           github_user_name: ${{ github.repository_owner }}
           outputs: |
-            docs/assets/snake.svg?color_snake=#ffb347&color_dots=#2a1c08,#5a3a10,#8a5a18,#c0801f,#ffb347
+            docs/assets/snake.svg?color_snake=#4dff7c&color_dots=#2a2a2a,#5a3a10,#8a5a18,#c47a12,#ffa21a
 
       - name: 3D contribution city
         uses: yoshi389111/github-profile-3d-contrib@v0.9.3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           USERNAME: ${{ github.repository_owner }}
+          SETTING_JSON: config/city-settings.json
 
       - name: Keep only the city the README shows
         run: |
-          cp profile-3d-contrib/profile-night-view.svg docs/assets/city.svg
+          cp profile-3d-contrib/profile-board.svg docs/assets/city.svg
           rm -rf profile-3d-contrib
 
       - name: Terminal header and project cards
