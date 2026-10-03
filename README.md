@@ -5,10 +5,6 @@
 </picture>
 </p>
 
-<p align="center">
-<a href="https://www.linkedin.com/in/davidecaputo93"><img src="https://img.shields.io/badge/LinkedIn-davidecaputo93-0A66C2?logo=linkedin&logoColor=white" alt="LinkedIn: davidecaputo93"></a>
-</p>
-
 ### Projects
 
 - **[Jamf-SnipeIT-Suite](https://github.com/CaputoDavide93/Jamf-SnipeIT-Suite)**: syncs devices and users between Jamf Pro, Snipe-IT and Azure AD
